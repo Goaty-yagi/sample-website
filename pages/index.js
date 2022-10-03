@@ -8,17 +8,31 @@ import Main from '../components/Main'
 import Partners from '../components/Partners'
 import Schedule from '../components/Schedule'
 import styles from '../styles/Home.module.css'
+import fs from "fs";
+import path from "path";
 
-export default function Home() {
+export default function Home({files}) {
   return (
     <>
     <Main/>
     <Article/>
     <Access/>
     <Schedule/>
-    <Partners/>
+    <Partners files={files}/>
     <Contact/>
     <Footer/>
     </>
   )
 }
+
+export async function getStaticProps() {
+  // Get files from the posts dir
+  const files = fs.readdirSync(path.join("public/partners"));
+  console.log("files",files)
+  return {
+    props: {
+      files,
+    },
+  };
+}
+
