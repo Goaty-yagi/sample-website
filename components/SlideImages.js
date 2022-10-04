@@ -1,45 +1,54 @@
 import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
 // import path from "path";
 export default function SlideImages({ files }) {
-  console.log("IN_SLIDE", files);
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrow: true,
-  };
-  return (
-    <Box w="80%" display="flex" overflow={"hidden"}>
-        {files && files.map((file) => {
-          return (
-            <motion.div 
-              animate={{x:"-100vw"}}
-              transition={{duration: 50,
-                ease: 'linear'}}
-            >
+  const fileArray= files.concat(files)
+  const fileMarginBothside = 16 * 2
+  const totalSequence = files.length * (fileMarginBothside + 150)
+  
+  function SlideItems() {
+    return (
+      <Flex>
+        {fileArray &&
+          fileArray.map((file, index) => {
+            return (
               <Box
-              m="1rem"
-              flexShrink={"0"}
-              w="150px"
-              h="150px"
-              position="relative"
-            >
-              <Image
-                layout="fill"
-                objectFit="cover"
-                objectPosition="50% 50%"
-                src={`/partners/${file}`}
-              />
-            </Box>
-
-            </motion.div>
-          );
-        })}
+                key={index}
+                m="1rem"
+                flexShrink={"0"}
+                w="150px"
+                h="150px"
+                position="relative"
+              >
+                <Image
+                  layout="fill"
+                  objectFit="cover"
+                  objectPosition="50% 50%"
+                  src={`/partners/${file}`}
+                />
+              </Box>
+            );
+          })}
+      </Flex>
+    )
+  }
+  function Slide() {
+    return (
+      <motion.div
+        animate={{ x: -totalSequence }}
+        transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+      >
+        <SlideItems/>
+      </motion.div>
+      
+    );
+  }
+  return (
+    <Box w="80%"  overflow={"hidden"}>
+      <Slide />
     </Box>
   );
 }
