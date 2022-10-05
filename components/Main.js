@@ -35,7 +35,8 @@ export default function Main() {
       </Box>
       <Image
         src={"/images/main.jpg"}
-        layout="fill"
+        // layout="fill"
+        width="100%"
         objectFit="cover"
         objectPosition="50% 0"
       ></Image>

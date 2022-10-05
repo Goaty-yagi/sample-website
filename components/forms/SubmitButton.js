@@ -47,7 +47,7 @@ export default function SubmitButton({mt}) {
       <PopoverContent>
         <PopoverArrow />
         <PopoverHeader>Confirmation!</PopoverHeader>
-        <PopoverBody>Are you sure you want to have that milkshake?</PopoverBody>
+        <PopoverBody>Are you sure you want to send a message?</PopoverBody>
         <PopoverFooter>
         <PopoverCloseButton />
         <Form firstFieldRef={firstFieldRef} onCancel={onClose} />

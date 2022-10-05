@@ -6,13 +6,13 @@ import SubmitButton from "./SubmitButton";
 
 export default function FormLayout() {
   return (
-    <Box textAlign={"center"}>
-    <Stack spacing={3}>
-      <InputName/>
-      <InputMail/>
-      <InputTextarea/>
-    </Stack>
-    <SubmitButton mt={"1rem"}/>
+    <Box w="400px" textAlign={"center"}>
+      <Stack spacing={3}>
+        <InputName/>
+        <InputMail/>
+        <InputTextarea/>
+      </Stack>
+      <SubmitButton mt={"1rem"}/>
     </Box>
   )
 }

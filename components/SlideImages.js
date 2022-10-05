@@ -1,14 +1,28 @@
 import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useLayoutEffect } from "react";
 
 // import path from "path";
 export default function SlideImages({ files }) {
-  const fileArray= files.concat(files)
-  const fileMarginBothside = 16 * 2
-  const totalSequence = files.length * (fileMarginBothside + 150)
-  
+  const fileMarginBothside = 16 * 2 //1rem margin on both sides
+  const oneSequence = files.length * (fileMarginBothside + 150) //150 is width of img
+  const [fileArray, setFileArray] = useState(files)
+  const containerRef = useRef('')
+  let img
+  useEffect(() => {
+    if(typeof window !== "undifined") {
+      let actualSequence = oneSequence
+      let divisionNum = containerRef.current.offsetWidth / actualSequence;
+      let tempFileArray = files
+      while(containerRef.current.offsetWidth > actualSequence - oneSequence) {
+        actualSequence += oneSequence
+        divisionNum = containerRef.current.offsetWidth / actualSequence;
+        tempFileArray = tempFileArray.concat(files)
+      }
+      setFileArray(tempFileArray)
+    }
+  },[])
   function SlideItems() {
     return (
       <Flex>
@@ -38,8 +52,9 @@ export default function SlideImages({ files }) {
   function Slide() {
     return (
       <motion.div
-        animate={{ x: -totalSequence }}
-        transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+        ref={containerRef}
+        animate={{ x: -oneSequence }}
+        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
       >
         <SlideItems/>
       </motion.div>
@@ -52,10 +67,3 @@ export default function SlideImages({ files }) {
     </Box>
   );
 }
-
-// export async function getStaticProps() {
-//   // Get files from the posts dir
-//   const files = fs.readdirSync(path.join("pablic/partners"));
-//   console.log(files)
-
-// }
