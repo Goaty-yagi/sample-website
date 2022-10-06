@@ -11,14 +11,15 @@ import styles from '../styles/Home.module.css'
 import fs from "fs";
 import path from "path";
 
-export default function Home({files}) {
+export default function Home({images}) {
+  console.log(images)
   return (
     <>
     <Main/>
     <Article/>
     <Access/>
     <Schedule/>
-    <Partners files={files}/>
+    <Partners images={images}/>
     <Contact/>
     <Footer/>
     </>
@@ -27,11 +28,22 @@ export default function Home({files}) {
 
 export async function getStaticProps() {
   // Get files from the posts dir
-  const files = fs.readdirSync(path.join("public/partners"));
-  console.log("files",files)
+  const sizeOf = require('image-size')
+  const files = fs.readdirSync(path.join("public/partners"))
+  const images = files.map((file, index) => {
+    const imageSize = sizeOf(`public/partners/${files[index]}`)
+    return {
+      file: file,
+      height: imageSize.height,
+      width: imageSize.width,
+      alt:`company logo ${file.split(".")[0]}`,
+      type: imageSize.type
+    }
+  });
+  console.log(images)
   return {
     props: {
-      files,
+      images,
     },
   };
 }

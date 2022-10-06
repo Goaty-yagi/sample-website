@@ -1,25 +1,44 @@
 import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useRef, useState, useLayoutEffect } from "react";
+import { useEffect, useRef, useState, useLayoutEffect, useDebugValue } from "react";
 
 // import path from "path";
-export default function SlideImages({ files }) {
-  const fileMarginBothside = 16 * 2 //1rem margin on both sides
-  const oneSequence = files.length * (fileMarginBothside + 150) //150 is width of img
-  const [fileArray, setFileArray] = useState(files)
+export default function SlideImages({ images }) {
+  const [oneSequence, setOneSequence] = useState(0)
+  const [fileArray, setFileArray] = useState(images)
   const containerRef = useRef('')
-  let img
+  
+  const imageDimension = (file) => {
+    const division = file.height / file.width
+    let imageInfo = {
+      w: 1,
+      h: 1
+    }
+    if(division === 1) {
+      return imageInfo
+    }
+    imageInfo.w = division < 1 ? file.width / file.height  : 1,
+    imageInfo.h = division > 1 ? file.height / file.width : 1 ,    
+    console.log(imageInfo, file.file, file.width, file.height)
+    return imageInfo
+  }
   useEffect(() => {
     if(typeof window !== "undifined") {
-      let actualSequence = oneSequence
+      let sumWidth = 0
+      const fileMarginBothside = 16 * 2 //1rem margin on both sides
+      images.forEach((each) => {
+        sumWidth += imageDimension(each).w * 150 + fileMarginBothside
+      })
+      let actualSequence = sumWidth
       let divisionNum = containerRef.current.offsetWidth / actualSequence;
-      let tempFileArray = files
-      while(containerRef.current.offsetWidth > actualSequence - oneSequence) {
-        actualSequence += oneSequence
+      let tempFileArray = images
+      while(containerRef.current.offsetWidth > actualSequence - sumWidth) {
+        actualSequence += sumWidth
         divisionNum = containerRef.current.offsetWidth / actualSequence;
-        tempFileArray = tempFileArray.concat(files)
+        tempFileArray = tempFileArray.concat(images)
       }
+      setOneSequence(sumWidth)
       setFileArray(tempFileArray)
     }
   },[])
@@ -33,15 +52,15 @@ export default function SlideImages({ files }) {
                 key={index}
                 m="1rem"
                 flexShrink={"0"}
-                w="150px"
-                h="150px"
+                w={`${imageDimension(file).w * 150}px`}
+                h={`${imageDimension(file).h * 150}px`}
                 position="relative"
               >
                 <Image
                   layout="fill"
                   objectFit="cover"
                   objectPosition="50% 50%"
-                  src={`/partners/${file}`}
+                  src={`/partners/${file.file}`}
                 />
               </Box>
             );
