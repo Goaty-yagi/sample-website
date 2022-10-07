@@ -2,15 +2,7 @@ import { Box } from "@chakra-ui/react";
 import Image from "next/image";
 
 export default function Dimension(file) {
-  console.log(file)
   const division = file.height / file.width
-  // const checkRatio = (file) => {
-  //   const ratio = {
-  //     w: division < 1 ? 1 + division : 1,
-  //     h: division > 1 ? 1 : 1 + division
-  //   }
-  //   return ratio
-  // }
   let imageInfo = {
     w: division < 1 ? 1 + division : 1,
     h: division > 1 ? 1 : 1 + division,    

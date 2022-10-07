@@ -8,8 +8,11 @@ export default function SlideImages({ images }) {
   const [oneSequence, setOneSequence] = useState(0)
   const [fileArray, setFileArray] = useState(images)
   const containerRef = useRef('')
-  
+  console.log(fileArray)
+
   const imageDimension = (file) => {
+    // receive image obj and return dimension of the image.
+    // ex, width and height are the same, return w:1 , h:1. 
     const division = file.height / file.width
     let imageInfo = {
       w: 1,
@@ -19,8 +22,7 @@ export default function SlideImages({ images }) {
       return imageInfo
     }
     imageInfo.w = division < 1 ? file.width / file.height  : 1,
-    imageInfo.h = division > 1 ? file.height / file.width : 1 ,    
-    console.log(imageInfo, file.file, file.width, file.height)
+    imageInfo.h = division > 1 ? file.height / file.width : 1 
     return imageInfo
   }
   useEffect(() => {
@@ -30,6 +32,7 @@ export default function SlideImages({ images }) {
       images.forEach((each) => {
         sumWidth += imageDimension(each).w * 150 + fileMarginBothside
       })
+      console.log(images)
       let actualSequence = sumWidth
       let divisionNum = containerRef.current.offsetWidth / actualSequence;
       let tempFileArray = images
