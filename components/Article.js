@@ -31,7 +31,7 @@ export default function article() {
       fontSize:"2.5rem"
     }
     return (
-      <Box w="90%">
+      <Box w="1300px">
         {articles.map((article, index) => {
           return (
             <Flex key={index} mb="8rem" h="280px" justifyContent={"center"}>
