@@ -8,7 +8,6 @@ export default function SlideImages({ images }) {
   const [oneSequence, setOneSequence] = useState(0)
   const [fileArray, setFileArray] = useState(images)
   const containerRef = useRef('')
-  console.log(fileArray)
 
   const imageDimension = (file) => {
     // receive image obj and return dimension of the image.

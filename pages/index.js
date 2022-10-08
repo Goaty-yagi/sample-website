@@ -10,7 +10,7 @@ import Schedule from '../components/Schedule'
 import styles from '../styles/Home.module.css'
 import fs from "fs";
 import path from "path";
-import Slideshow from '../components/images/SlideShow'
+
 
 export default function Home({images}) {
   console.log(images)
@@ -22,7 +22,6 @@ export default function Home({images}) {
     <Schedule/>
     <Partners images={images}/>
     <Contact/>
-    <Slideshow/>
     <Footer/>
     </>
   )

@@ -1,13 +1,19 @@
 import { Box, Image, Text, Flex } from "@chakra-ui/react";
+import Slideshow from "./images/SlideShow";
 
 export default function Main() {
   const mainText = `Unforgettable\nExperience`
+  const imagesArray = [
+    "https://d33wubrfki0l68.cloudfront.net/dd23708ebc4053551bb33e18b7174e73b6e1710b/dea24/static/images/wallpapers/shared-colors@2x.png",
+    "https://d33wubrfki0l68.cloudfront.net/49de349d12db851952c5556f3c637ca772745316/cfc56/static/images/wallpapers/bridge-02@2x.png",
+    "https://d33wubrfki0l68.cloudfront.net/594de66469079c21fc54c14db0591305a1198dd6/3f4b1/static/images/wallpapers/bridge-01@2x.png"
+  ];
+  const images= ["/images/main.jpg","/images/access.jpg","/images/fireworks.jpg"]
   return (
     
     < Flex
       w="100vw"
-      h="auto"
-    //   h={{ base: "200px", sm: "250px", md: "35%" }}
+      h={{ base: "200px", sm:"300px" ,md: "400px",lg:"600px", xl:"800px", "2xl": "100vh" }}
       filter='grayscale(40%)'
       position="relative"
       overflow={"hidden"}
@@ -21,6 +27,7 @@ export default function Main() {
         lineHeight="3rem"
         fontSize="3.5rem"
         color={"white"}
+        zIndex={"2"}
         textShadow={"1px 1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,-1px -1px 0 #000;"}
         >{mainText}
       </Text>
@@ -33,13 +40,7 @@ export default function Main() {
           >
         </Image>
       </Box>
-      <Image
-        src={"/images/main.jpg"}
-        // layout="fill"
-        width="100%"
-        objectFit="cover"
-        objectPosition="50% 0"
-      ></Image>
+      <Slideshow images={images}/>
     </Flex>
   );
 }
