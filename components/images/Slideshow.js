@@ -1,15 +1,17 @@
-import { Box, Flex, Image, Text, Heading, Center } from "@chakra-ui/react";
-// import Image from "next/image";
-import { useState } from "react";
+import { Box, Flex, Image,Text,  Heading, Center } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { wrap } from "popmotion";
 
 export default function Slideshow({ images }) {
-  if (typeof images[0] !== "object") {
-    images = images.map((image) => {
-      return { url: image };
-    });
-  }
+  const [check, setCheck] = useState(0)
+  useEffect(() => {
+    const id = setInterval(() => {
+      paginate(1)
+      setCheck(check + 1)
+  }, 5000);
+  return () => clearInterval(id);
+  },[check])
   function Selector() {
     const selectorWidth = images.length * 32
     return (
@@ -93,8 +95,7 @@ export default function Slideshow({ images }) {
         initial={false}
         custom={direction}
         position="relative"
-        justifyContent={"center"}
-        // alignItems="center"
+        justifyContent={"center"} 
         w="100%"
         h="100%"
       >
@@ -135,11 +136,18 @@ export default function Slideshow({ images }) {
               }
             }}
           />
-          {Object.keys(images[imageIndex]).some((val) => val === "text") && (
+        {Object.keys(images[imageIndex]).some((val) => val === "text") && (
             <Heading
-            //will set style
+            top="calc(50% - 20px)"
+            left="50px"
+            color={"white"}
+            border={"solid gray"}
+            bg="rgba(255,255,255,0.2)"
+            p="0.5rem 2rem"
+            position={"absolute"}
+            textShadow='2px 2px black'
             >
-              {val.text}
+              {images[imageIndex].text}
             </Heading>
           )}
         </Box>
