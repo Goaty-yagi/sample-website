@@ -16,6 +16,7 @@ export default function Home({images}) {
   console.log(images)
   return (
     <>
+    
     <Main/>
     <Article/>
     <Access/>

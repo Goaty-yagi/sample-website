@@ -6,8 +6,12 @@ import {
   TabPanel,
   Box,
   Flex,
+  Text,
+  Heading,
+  Center,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { IoMdTimer } from "react-icons/io";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 // import { BiRadioCircleMarked } from "react-contents/bi";
 
@@ -15,87 +19,137 @@ export default function Panels() {
   const panels = [
     {
       display: "FRYDAY",
-      content: "somethings",
+      date: new Date(2022,10,23),
+      content: [
+        {
+          dispayName: "celemony",
+          startTime: "12:00",
+          endTime: "13:00",
+          description: "something",
+          icon: <IoMdTimer />,
+        },
+        {
+          dispayName: "celemony",
+          startTime: "13:00",
+          endTime: "13:05",
+          description: "something",
+          icon: <IoMdTimer />,
+        },
+      ],
     },
     {
       display: "THURSDAY",
-      content: "something1",
+      date: new Date(2022,10,24),
+      content: [
+        {
+          dispayName: "celemony",
+          startTime: "12:00",
+          endTime: "13:00",
+          description: "something",
+          icon: <IoMdTimer />,
+        },
+        {
+          dispayName: "celemony",
+          startTime: "13:00",
+          endTime: "13:05",
+          description: "something",
+          icon: <IoMdTimer />,
+        },
+      ],
     },
     {
       display: "SUNDAY",
-      content: "something2",
+      date: new Date(2022,10,25),
+      content: [
+        {
+          dispayName: "celemony",
+          startTime: "12:00",
+          endTime: "13:00",
+          description: "something",
+          icon: <IoMdTimer />,
+        },
+        {
+          dispayName: "celemony",
+          startTime: "13:00",
+          endTime: "13:05",
+          description: "something",
+          icon: <IoMdTimer />,
+        },
+      ],
     },
   ];
   const [selectedTab, setSelectedTab] = useState(panels[0]);
-  console.log(selectedTab);
+  function Contents() {
+    return (
+      <>
+        <Flex justifyContent={"center"} as={"main"}>
+          <AnimatePresence exitBeforeEnter>
+            <motion.div
+              key={selectedTab ? selectedTab.display : "empty"}
+              initial={{ y: 10, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -10, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              {selectedTab.content.map((item, index) => {
+                return (
+                  <Flex
+                    key={index}
+                    position={"relative"}
+                    w="400px"
+                    justifyContent={"center"}
+                    borderLeft="40px solid green"
+                    // pl="40px"
+                    mt="1rem"
+                    borderRadius="1rem"
+                    boxShadow={"xl"}
+                  >
+                    <Flex
+                      flexBasis={"20%"}
+                      alignItems="center"
+                      p="0.5rem"
+                      flexDirection={"column"}
+                      justifyContent={"center"}
+                      borderRight="solid gray"
+                      borderTop="1rem"
+                    >
+                      <Text>{selectedTab.date.month}</Text>
+                      <Text>{selectedTab.date.day}</Text>
+                    </Flex>
+                    <Flex flexBasis={"80%"} alignItems="center">
+                      <Text m="0 0.5rem" color={"darkgray"} fontSize={"2rem"}>{item.icon}</Text>
+                      <Box>
+                        <Heading>{item.dispayName}</Heading>
+                        <Text>{item.description}</Text>
+                      </Box>
+                    </Flex>
+                  </Flex>
+                );
+              })}
+            </motion.div>
+          </AnimatePresence>
+        </Flex>
+      </>
+    );
+  }
   return (
-    // <div className="window" width="100vw" >
-    //   <nav display="flex">
-    //     <ul display="flex" width="100vw">
-    //       {panels.map((item) => (
-    //         <li
-    //           key={item.display}
-    //           className={item === selectedTab ? "selected" : ""}
-    //           onClick={() => setSelectedTab(item)}
-    //         >
-    //           {`${item.content} ${item.display}`}
-    //           {item === selectedTab ? (
-    //             <motion.div className="underline" layoutId="underline" />
-    //           ) : null}
-    //         </li>
-    //       ))}
-    //     </ul>
-    //   </nav>
-    //   <main>
-    //     <AnimatePresence exitBeforeEnter>
-    //       <motion.div
-    //         key={selectedTab ? selectedTab.display : "empty"}
-    //         initial={{ y: 10, opacity: 0 }}
-    //         animate={{ y: 0, opacity: 1 }}
-    //         exit={{ y: -10, opacity: 0 }}
-    //         transition={{ duration: 0.2 }}
-    //       >
-    //         {selectedTab ? selectedTab.content : "😋"}
-    //       </motion.div>
-    //     </AnimatePresence>
-    //   </main>
-    // </div>
-    <Tabs>
-      <Flex>
-        {panels.map((item, index) => (
-          <TabList
-            m="1rem"
-            key={index}
-            className={item === selectedTab ? "selected" : ""}
-            onClick={() => setSelectedTab(item)}
-          >
-            <Tab>
-              {item.display}
-              {item.display === selectedTab.display ? (
-                <motion.div layoutId="underline" />
-              ) : null}
-            </Tab>
-          </TabList>
+    <Box width="100vw">
+      <Flex as={Tabs} justifyContent="center" width="100vw">
+        {panels.map((item) => (
+          <Flex as={Tab} flexDirection="column" key={item.display} onClick={() => setSelectedTab(item)}>
+            <Text fontWeight={"bold"}>{item.display}</Text>
+            <Flex>
+              <Text mr="0.2rem">{item.date.toLocaleString('en-us', { month: 'short' })}</Text>
+              /
+              <Text ml="0.2rem">{item.date.getDate()}</Text>
+            </Flex>          
+            {item === selectedTab ? (
+              <motion.div className="underline" layoutId="underline" />
+            ) : null}
+          </Flex>
         ))}
       </Flex>
-      <Box>
-        <AnimatePresence exitBeforeEnter>
-          <TabPanels>
-            {panels.map((item, index) => (
-              <TabPanel key={`item-${item.display}`}>
-                <motion.div
-                  initial={{ y: 10, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -10, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {item.display}
-                </motion.div>
-              </TabPanel>
-            ))}
-          </TabPanels>
-        </AnimatePresence>
-      </Box>
-    </Tabs>
+      <Contents />
+    </Box>
   );
 }

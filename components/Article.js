@@ -1,4 +1,5 @@
 import { Box, Text, Flex, Heading } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Toggle from "./Toggle";
 
@@ -28,66 +29,82 @@ export default function article() {
   function Articles() {
     const headingStyles = {
       mb: "2rem",
-      fontSize:"2.5rem"
-    }
+      fontSize: "2.5rem",
+    };
     return (
       <Box w="1300px">
         {articles.map((article, index) => {
           return (
-            <Flex key={index} mb="8rem" h="280px" justifyContent={"center"}>
-              {index % 2 !== 0 && (
-                <>
-                  <Box
-                    flexBasis={"45%"}
-                    w="100%"
-                    h={"100%"}
-                    position="relative"
-                    overflow={"hidden"}
-                  >
-                    <Image
-                      src={article.image}
-                      layout="fill"
-                      objectFit="cover"
-                      // objectPosition="50% 0"
-                    />
-                  </Box>
-                  <Box p="1rem" flexBasis={"45%"}>
-                    <Heading sx={headingStyles}>{article.title}</Heading>
-                    <Text bottom="0">{article.article}</Text>
-                  </Box>
-                </>
-              )}
-              {index % 2 === 0 && (
-                <>
-                  <Box p="1rem" flexBasis={"45%"}>
-                    <Heading sx={headingStyles}>{article.title}</Heading>
-                    <Text bottom="0">{article.article}</Text>
-                  </Box>
-                  <Box
-                    flexBasis={"45%"}
-                    w="100%"
-                    h={"100%"}
-                    position="relative"
-                    overflow={"hidden"}
-                  >
-                    <Image
-                      src={article.image}
-                      layout="fill"
-                      objectFit="cover"
-                      // objectPosition="50% 0"
-                    />
-                  </Box>
-                </>
-              )}
-            </Flex>
+            <motion.div
+              key={index}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{
+                duration: 0.5,
+                delay: 0.5,
+              }}
+              viewport={{ once: true }}
+            >
+              <Flex mb="8rem" h="280px" justifyContent={"center"}>
+                {index % 2 !== 0 && (
+                  <>
+                    <Box
+                      flexBasis={"45%"}
+                      w="100%"
+                      h={"100%"}
+                      position="relative"
+                      overflow={"hidden"}
+                    >
+                      <Image
+                        src={article.image}
+                        layout="fill"
+                        objectFit="cover"
+                        // objectPosition="50% 0"
+                      />
+                    </Box>
+                    <Box p="1rem" flexBasis={"45%"}>
+                      <Heading sx={headingStyles}>{article.title}</Heading>
+                      <Text bottom="0">{article.article}</Text>
+                    </Box>
+                  </>
+                )}
+                {index % 2 === 0 && (
+                  <>
+                    <Box p="1rem" flexBasis={"45%"}>
+                      <Heading sx={headingStyles}>{article.title}</Heading>
+                      <Text bottom="0">{article.article}</Text>
+                    </Box>
+                    <Box
+                      flexBasis={"45%"}
+                      w="100%"
+                      h={"100%"}
+                      position="relative"
+                      overflow={"hidden"}
+                    >
+                      <Image
+                        src={article.image}
+                        layout="fill"
+                        objectFit="cover"
+                        // objectPosition="50% 0"
+                      />
+                    </Box>
+                  </>
+                )}
+              </Flex>
+            </motion.div>
           );
         })}
       </Box>
     );
   }
   return (
-    <Flex position="relative" alignItems={"center"} mt="3rem" flexDirection={"column"}>
-      <Toggle/>
+    <Flex
+      position="relative"
+      alignItems={"center"}
+      mt="3rem"
+      flexDirection={"column"}
+    >
+      <Toggle />
       <Heading mb="3rem" size="lg">
         {dateInfo}
       </Heading>
