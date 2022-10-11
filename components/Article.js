@@ -1,6 +1,7 @@
 import { Box, Text, Flex, Heading } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Scroll from "./animations/Scroll";
 import Toggle from "./Toggle";
 
 export default function article() {
@@ -35,16 +36,7 @@ export default function article() {
       <Box w="1300px">
         {articles.map((article, index) => {
           return (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{
-                duration: 0.5,
-                delay: 0.5,
-              }}
-              viewport={{ once: true }}
-            >
+            <Scroll key={index}>
               <Flex mb="8rem" h="280px" justifyContent={"center"}>
                 {index % 2 !== 0 && (
                   <>
@@ -91,7 +83,7 @@ export default function article() {
                   </>
                 )}
               </Flex>
-            </motion.div>
+            </Scroll>
           );
         })}
       </Box>

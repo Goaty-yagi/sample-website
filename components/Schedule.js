@@ -13,23 +13,10 @@ export default function Schedule() {
       h="800px"
       bg="#FB6F6F"
     >
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{
-          duration: 0.5,
-          delay: 0.5,
-        }}
-        viewport={{ once: true }}
-      >
-        <Heading m="2rem 0" fontSize="3rem">
-          <Center>
-          Schedule
-          </Center>
-        </Heading>
-
-        <Panels />
-      </motion.div>
+      <Heading m="2rem 0" fontSize="3rem">
+        <Center>Schedule</Center>
+      </Heading>
+      <Panels />
     </Flex>
   );
 }

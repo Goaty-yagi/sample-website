@@ -9,11 +9,12 @@ import {
   Text,
   Heading,
   Center,
+  transition,
 } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { IoMdTimer } from "react-icons/io";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
-// import { BiRadioCircleMarked } from "react-contents/bi";
+import Scroll from "./animations/Scroll";
 
 export default function Panels() {
   const panels = [
@@ -33,6 +34,20 @@ export default function Panels() {
           startTime: "13:00",
           endTime: "13:05",
           description: "something",
+          icon: <IoMdTimer />,
+        },
+        {
+          dispayName: "Lunch Break",
+          startTime: "13:10",
+          endTime: "15:00",
+          description: "It is time for lunch",
+          icon: <IoMdTimer />,
+        },
+        {
+          dispayName: "Dance",
+          startTime: "15:00",
+          endTime: "20:00",
+          description: "Why not dance?",
           icon: <IoMdTimer />,
         },
       ],
@@ -79,133 +94,134 @@ export default function Panels() {
     },
   ];
   const [selectedTab, setSelectedTab] = useState(panels[0]);
-  const colorPalette = [
-    "187498",
-    "36AE7C",
-    "F9D923",
-    "251D3A"
-  ]
-  const randonNum = () => {
-    return colorPalette[Math.floor(Math.random() * colorPalette.length)]
-  }
+  const variant = {
+    hidden: {
+      y: 10,
+      opacity: 0,
+    },
+    show: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+      },
+    },
+    exit: {
+      y: -10,
+      opacity: 0,
+    },
+  };
+  const childVariant = {
+    hidden: (index) => ({
+      x: index % 2 === 0 ? "-1000px" : "1000px",
+    }),
+    show: {
+      x: "0",
+      transition: {
+        duration: 0.8,
+        type: "spring",
+        damping: 30,
+      },
+    },
+    exit: (index) => ({
+      x: index % 2 === 0 ? "-1000px" : "1000px",
+    }),
+  };
   function Contents() {
+    const checkOddEven = (num) => {
+      //return true if even
+      return num % 2 === 0;
+    };
     return (
       <>
-        <Flex justifyContent={"center"} as={"main"}>
+        <Flex position={"relative"} justifyContent={"center"} as={"main"}>
           <AnimatePresence exitBeforeEnter>
             <motion.div
               key={selectedTab ? selectedTab.display : "empty"}
-              initial={{ y: 10, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
+              variants={variant}
+              initial={"hidden"}
+              whileInView={"show"}
               exit={{ y: -10, opacity: 0 }}
               transition={{ duration: 0.2 }}
+              viewport={{ once: true, amount:0.7 }}
             >
               {selectedTab.content.map((item, index) => {
                 return (
-                  <Box key={index}>
-                    {index % 2 === 0 && (
+                  <Box position={"absolute"} as={AnimatePresence} exitBeforeEnter key={index}>
+                    <Flex
+                      as={motion.div}
+                      custom={index}
+                      variants={childVariant}
+                      position={"relative"}
+                      w="400px"
+                      mt="0.1rem"
+                      textShadow={"1px 1px 1px black"}
+                      left={checkOddEven(index) ? "-30px" : "0"}
+                      right={checkOddEven(index) ? "0" : "-30px"}
+                      justifyContent={"center"}
+                      bgGradient={
+                        checkOddEven(index)
+                          ? `linear(to-r, #9C0F48,#FB6F6F)`
+                          : `linear(to-l, #1A1A40,#FB6F6F)`
+                      }
+                      borderRadius="1rem"
+                      overflow="hidden"
+                      boxShadow={
+                        checkOddEven(index)
+                          ? "-3px 0.5px 2px 1px rgba(20,20,20,.3)"
+                          : "4px 0.5px 2px 1px rgba(20,20,20,.3)"
+                      }
+                    >
+                      <Box
+                        h="100%"
+                        w="30px"
+                        left={checkOddEven(index) ? "0" : ""}
+                        right={checkOddEven(index) ? "" : "0"}
+                        position={"absolute"}
+                        bg="#F9F5EB"
+                        borderRight={checkOddEven(index)?"solid darkblue":''}
+                        borderLeft={checkOddEven(index)?'':"solid darkblue"}
+                        // bgGradient={`linear(to-r, darkgray,#${randonNum(0)})`}
+                      />
                       <Flex
-                        position={"relative"}
-                        w="400px"
-                        left="-30px"
+                        flexBasis={"20%"}
+                        alignItems="center"
+                        p="0.5rem"
+                        pl="40px"
+                        flexDirection={"column"}
                         justifyContent={"center"}
-                        bgGradient={`linear(to-r, #FB6F69,#FB6F6F)`}
-                        borderRadius="1rem"
-                        overflow="hidden"
-                        boxShadow={"-2px -2px 2px 1px rgba(20,20,20,.3)"}
+                        borderTop="1rem"
                       >
-                        <Box h="100%" w="30px" left="0" position={"absolute"}  bgGradient={`linear(to-r, #${randonNum(0)},#${randonNum(0)})`}/>
-                        <Flex
-                          flexBasis={"20%"}
-                          alignItems="center"
-                          p="0.5rem"
-                          pl="40px"
-                          flexDirection={"column"}
-                          justifyContent={"center"}
-                          borderTop="1rem"
-                        >
-                          <Text>{item.startTime}</Text>
-                          <Text>~</Text>
-                          <Text>{item.endTime}</Text>
-                        </Flex>
-                        <Flex
-                          flexBasis={"15%"}
-                          m="0 0.5rem"
-                          maxH="10%"
-                          justifyContent={"center"}
-                          alignItems={"center"}
-                          p="0 0.3rem"
-                          borderRight="solid gray"
-                          borderLeft="solid gray"
-                          color={"darkgray"}
-                          fontSize={"2rem"}
-                        >
-                          {item.icon}
-                        </Flex>
-                        <Flex
-                          flexBasis={"65%"}
-                          flexDirection={"column"}
-                          alignItems="center"
-                        >
-                          <Heading as="h2" fontSize="1.5rem" p="0.5rem">
-                            {item.dispayName}
-                          </Heading>
-                          <Text>{item.description}</Text>
-                        </Flex>
+                        <Text>{item.startTime}</Text>
+                        <Text>~</Text>
+                        <Text>{item.endTime}</Text>
                       </Flex>
-                    )}
-                    {index % 2 !== 0 && (
                       <Flex
-                        position={"relative"}
-                        w="400px"
-                        right={"-30px"}
-                        boxShadow={"4px -2px 2px 1px rgba(20,20,20,.3)"}
+                        flexBasis={"15%"}
+                        m="0 0.5rem"
+                        maxH="10%"
                         justifyContent={"center"}
-                        borderRadius="1rem"
-                        bgGradient={`linear(to-l, #FB6F69,#FB6F6F)`}
-                        overflow={"hidden"}
+                        alignItems={"center"}
+                        p="0 0.3rem"
+                        borderRight="solid gray"
+                        borderLeft="solid gray"
+                        color={"#F9F5EB"}
+                        fontSize={"2rem"}
+
                       >
-                        <Box h="100%" w="30px" right="0" position={"absolute"}  bgGradient={`linear(to-l, #${randonNum(0)},#${randonNum()})`}/>
-                        <Flex
-                          flexBasis={"30%"}
-                          alignItems="center"
-                          p="0.5rem"
-                          flexDirection={"column"}
-                          justifyContent={"center"}
-                          borderTop="1rem"
-                        >
-                          <Text>{item.startTime}</Text>
-                          <Text>~</Text>
-                          <Text>{item.endTime}</Text>
-                        </Flex>
-                        {/* <Flex flexBasis={"80%"} alignItems="center"> */}
-                        <Flex
-                          flexBasis={"15%"}
-                          m="0 0.5rem"
-                          maxH="10%"
-                          justifyContent={"center"}
-                          alignItems={"center"}
-                          p="0 0.3rem"
-                          borderRight="solid gray"
-                          borderLeft="solid gray"
-                          color={"darkgray"}
-                          fontSize={"2rem"}
-                        >
-                          {item.icon}
-                        </Flex>
-                        <Flex
-                          flexBasis={"65%"}
-                          flexDirection={"column"}
-                          alignItems="center"
-                        >
-                          <Heading as="h2" fontSize="1.5rem" p="0.5rem">
-                            {item.dispayName}
-                          </Heading>
-                          <Text>{item.description}</Text>
-                        </Flex>
-                        {/* </Flex> */}
+                        {item.icon}
                       </Flex>
-                    )}
+                      <Flex
+                        flexBasis={"65%"}
+                        flexDirection={"column"}
+                        alignItems="center"
+                      >
+                        <Heading as="h2" fontSize="1.5rem" p="0.5rem">
+                          {item.dispayName}
+                        </Heading>
+                        <Text>{item.description}</Text>
+                      </Flex>
+                    </Flex>
                   </Box>
                 );
               })}
@@ -217,6 +233,7 @@ export default function Panels() {
   }
   return (
     <Box width="100vw">
+      <Scroll>
       <Flex as={Tabs} justifyContent="center" width="100vw" mb="1rem">
         {panels.map((item, index) => (
           <Flex
@@ -235,12 +252,11 @@ export default function Panels() {
                 {item.date.getDate()}
               </Text>
             </Flex>
-            {item === selectedTab ? (
-              <motion.div layoutId="underline" />
-            ) : null}
+            {item === selectedTab ? <motion.div className="underline" layoutId="underline" /> : null}
           </Flex>
         ))}
       </Flex>
+      </Scroll>
       <Contents />
     </Box>
   );

@@ -1,4 +1,4 @@
-import { Box, Text, Flex, Heading } from "@chakra-ui/react";
+import { Box, Text, Flex, Heading, Center } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import SlideImages from "./SlideImages";
@@ -15,7 +15,9 @@ export default function Partners({ images }) {
         }}
         viewport={{ once: true }}
       >
+        <Center>
         <Heading color={"gray"}>PRINCIPAL PARTNERS</Heading>
+        </Center>
         <Flex w="100%" h="350px" justifyContent={"center"} alignItems="center">
           <SlideImages images={images} />
         </Flex>

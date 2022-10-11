@@ -83,7 +83,7 @@ export default function SlideImages({ images }) {
     );
   }
   return (
-    <Box w="80%"  overflow={"hidden"}>
+    <Box w="80vw"  overflow={"hidden"}>
       <Slide />
     </Box>
   );

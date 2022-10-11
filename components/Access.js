@@ -1,27 +1,15 @@
 import { Box, Text, Flex, Heading, Center } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Scroll from "./animations/Scroll";
 
 export default function Access() {
   return (
-    <Box
-      h="100%"
-      w="100%"
-      m="1rem 0"
-      alignItems="center"
-    >
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{
-          duration: 0.5,
-          delay: 0.5,
-        }}
-        viewport={{ once: true }}
-        >
-        <Center>
-          <Heading>ACCESS</Heading>
-        </Center>
+    <Box h="100%" w="100%" m="1rem 0" alignItems="center">
+      <Center>
+        <Heading>ACCESS</Heading>
+      </Center>
+      <Scroll>
         <Box
           w="100%"
           mt="1rem"
@@ -37,7 +25,7 @@ export default function Access() {
             objectFit="contain"
           ></Image>
         </Box>
-      </motion.div>
+      </Scroll>
     </Box>
   );
 }
