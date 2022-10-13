@@ -1,14 +1,19 @@
 import {
-    Input,
-    FormControl,
-    FormLabel,
-    FormErrorMessage,
-    FormHelperText,
-  } from '@chakra-ui/react'
-
+  Input,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+} from "@chakra-ui/react";
+import { Field } from "formik";
 
 export default function InputMail() {
   return (
-    <Input placeholder='Email' size='lg' />
-  )
+    <>
+      <FormControl isRequired>
+        <FormLabel htmlFor="email">Email Address</FormLabel>
+        <Field as={Input} id="email" name="email" type="email" />
+      </FormControl>
+    </>
+  );
 }

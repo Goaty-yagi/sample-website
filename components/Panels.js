@@ -13,6 +13,8 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { IoMdTimer } from "react-icons/io";
+import { GiMeal } from "react-icons/gi"
+import { MdEmojiPeople, MdOutlineCelebration } from "react-icons/md"
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 import Scroll from "./animations/Scroll";
 
@@ -34,21 +36,21 @@ export default function Panels() {
           startTime: "13:00",
           endTime: "13:05",
           description: "something",
-          icon: <IoMdTimer />,
+          icon: <MdOutlineCelebration />,
         },
         {
           dispayName: "Lunch Break",
           startTime: "13:10",
           endTime: "15:00",
           description: "It is time for lunch",
-          icon: <IoMdTimer />,
+          icon: <GiMeal />,
         },
         {
           dispayName: "Dance",
           startTime: "15:00",
           endTime: "20:00",
           description: "Why not dance?",
-          icon: <IoMdTimer />,
+          icon: <MdEmojiPeople />,
         },
       ],
     },
@@ -61,7 +63,7 @@ export default function Panels() {
           startTime: "12:00",
           endTime: "13:00",
           description: "something",
-          icon: <IoMdTimer />,
+          icon: <MdOutlineCelebration />,
         },
         {
           dispayName: "celemony",
@@ -88,7 +90,7 @@ export default function Panels() {
           startTime: "13:00",
           endTime: "13:05",
           description: "something",
-          icon: <IoMdTimer />,
+          icon: <MdOutlineCelebration />,
         },
       ],
     },
@@ -143,11 +145,16 @@ export default function Panels() {
               whileInView={"show"}
               exit={{ y: -10, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              viewport={{ once: true, amount:0.7 }}
+              viewport={{ once: true, amount: 0.7 }}
             >
               {selectedTab.content.map((item, index) => {
                 return (
-                  <Box position={"absolute"} as={AnimatePresence} exitBeforeEnter key={index}>
+                  <Box
+                    position={"absolute"}
+                    as={AnimatePresence}
+                    exitBeforeEnter
+                    key={index}
+                  >
                     <Flex
                       as={motion.div}
                       custom={index}
@@ -161,7 +168,7 @@ export default function Panels() {
                       justifyContent={"center"}
                       bgGradient={
                         checkOddEven(index)
-                          ? `linear(to-r, #9C0F48,#FB6F6F)`
+                          ? `linear(to-r, #06283D,#FB6F6F)`
                           : `linear(to-l, #1A1A40,#FB6F6F)`
                       }
                       borderRadius="1rem"
@@ -179,8 +186,10 @@ export default function Panels() {
                         right={checkOddEven(index) ? "" : "0"}
                         position={"absolute"}
                         bg="#F9F5EB"
-                        borderRight={checkOddEven(index)?"solid darkblue":''}
-                        borderLeft={checkOddEven(index)?'':"solid darkblue"}
+                        borderRight={
+                          checkOddEven(index) ? "solid darkblue" : ""
+                        }
+                        borderLeft={checkOddEven(index) ? "" : "solid darkblue"}
                         // bgGradient={`linear(to-r, darkgray,#${randonNum(0)})`}
                       />
                       <Flex
@@ -207,7 +216,6 @@ export default function Panels() {
                         borderLeft="solid gray"
                         color={"#F9F5EB"}
                         fontSize={"2rem"}
-
                       >
                         {item.icon}
                       </Flex>
@@ -234,28 +242,30 @@ export default function Panels() {
   return (
     <Box width="100vw">
       <Scroll>
-      <Flex as={Tabs} justifyContent="center" width="100vw" mb="1rem">
-        {panels.map((item, index) => (
-          <Flex
-            as={Tab}
-            flexDirection="column"
-            key={index}
-            onClick={() => setSelectedTab(item)}
-          >
-            <Text fontWeight={"bold"}>{item.display}</Text>
-            <Flex>
-              <Text fontSize="0.8rem" mr="0.2rem">
-                {item.date.toLocaleString("en-us", { month: "short" })}
-              </Text>
-              <Text fontSize="0.8rem">/</Text>
-              <Text fontSize="0.8rem" ml="0.2rem">
-                {item.date.getDate()}
-              </Text>
+        <Flex as={Tabs} justifyContent="center" width="100vw" mb="1rem">
+          {panels.map((item, index) => (
+            <Flex
+              as={Tab}
+              flexDirection="column"
+              key={index}
+              onClick={() => setSelectedTab(item)}
+            >
+              <Text fontWeight={"bold"}>{item.display}</Text>
+              <Flex>
+                <Text fontSize="0.8rem" mr="0.2rem">
+                  {item.date.toLocaleString("en-us", { month: "short" })}
+                </Text>
+                <Text fontSize="0.8rem">/</Text>
+                <Text fontSize="0.8rem" ml="0.2rem">
+                  {item.date.getDate()}
+                </Text>
+              </Flex>
+              {item === selectedTab ? (
+                <motion.div className="underline" layoutId="underline" />
+              ) : null}
             </Flex>
-            {item === selectedTab ? <motion.div className="underline" layoutId="underline" /> : null}
-          </Flex>
-        ))}
-      </Flex>
+          ))}
+        </Flex>
       </Scroll>
       <Contents />
     </Box>
