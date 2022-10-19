@@ -1,16 +1,14 @@
-// import { Box, Flex, Stack } from "@chakra-ui/react";
 import InputMail from "./inputMail";
 import InputName from "./InputName";
 import InputTextarea from "./InputTextarea";
-// import SubmitButton from "./SubmitButton";
+import { Formik } from "formik";
+import { useRef } from "react";
+
 import {
   Box,
   Button,
   Flex,
   VStack,
-} from "@chakra-ui/react";
-import { Formik } from "formik";
-import {
   ButtonGroup,
   Popover,
   PopoverTrigger,
@@ -24,10 +22,10 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { useRef, useState } from "react";
 
 export default function FormLayout() {
   const { onOpen, onClose, isOpen } = useDisclosure();
+  // const childRef = useRef()
   function PopTrigger({ children }) {
     return (
       <>
@@ -43,7 +41,7 @@ export default function FormLayout() {
       const toast = useToast();
       const toastFun = () => {
         onCancel();
-        resetForm()
+        resetForm();
         return toast({
           title: "Successfully sent.",
           description: "We've send your message.",
@@ -98,7 +96,7 @@ export default function FormLayout() {
   }
   return (
     <>
-      <Box p={6} h="200px" w="500px">
+      <Box w={{base:"90%", lg:"500px"}}>
         <Formik
           initialValues={{
             username: "",

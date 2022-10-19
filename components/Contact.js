@@ -5,13 +5,15 @@ import Scroll from "./animations/Scroll";
 import FormLayout from "./forms/FormLayout";
 export default function Contact() {
   return (
-    <Flex flexDirection={"column"} m="3rem 0" alignItems="center" minH="600px">
-      <Scroll>
+    <Scroll>
+    <Flex flexDirection={"column"} m="3rem 0" w={{base:"100%"}} alignItems="center" minH="600px">
+      
         <Heading mb="1.5rem" color={"gray"}>
           <Center>CONTACT US</Center>
         </Heading>
         <FormLayout />
-      </Scroll>
+
     </Flex>
+    </Scroll>
   );
 }

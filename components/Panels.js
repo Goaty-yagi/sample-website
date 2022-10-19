@@ -11,11 +11,11 @@ import {
   Center,
   transition,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdTimer } from "react-icons/io";
 import { GiMeal } from "react-icons/gi"
 import { MdEmojiPeople, MdOutlineCelebration } from "react-icons/md"
-import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Scroll from "./animations/Scroll";
 
 export default function Panels() {
@@ -96,6 +96,15 @@ export default function Panels() {
     },
   ];
   const [selectedTab, setSelectedTab] = useState(panels[0]);
+  const [width, setWidth] = useState(0)
+  useEffect(() => {
+    if(window !== "undefined")  {
+      setWidth(window.innerWidth)
+      window.addEventListener('resize',(e) => {
+        setWidth(window.innerWidth)
+      })
+    }
+  },[])
   const variant = {
     hidden: {
       y: 10,
@@ -115,9 +124,12 @@ export default function Panels() {
   };
   const childVariant = {
     hidden: (index) => ({
-      x: index % 2 === 0 ? "-1000px" : "1000px",
+      opacity:0,
+      // position:"absolute",
+      x: index % 2 === 0 ? "-100px" : "100px",
     }),
     show: {
+      opacity:1,
       x: "0",
       transition: {
         duration: 0.8,
@@ -126,7 +138,7 @@ export default function Panels() {
       },
     },
     exit: (index) => ({
-      x: index % 2 === 0 ? "-1000px" : "1000px",
+      x: index % 2 === 0 ? "-100px" : "100px",
     }),
   };
   function Contents() {
@@ -136,7 +148,7 @@ export default function Panels() {
     };
     return (
       <>
-        <Flex position={"relative"} justifyContent={"center"} as={"main"}>
+        <Box  position={"relative"} w="100％" justifyContent={"center"} as={"main"}>
           <AnimatePresence exitBeforeEnter>
             <motion.div
               key={selectedTab ? selectedTab.display : "empty"}
@@ -145,12 +157,14 @@ export default function Panels() {
               whileInView={"show"}
               exit={{ y: -10, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              viewport={{ once: true, amount: 0.7 }}
+              viewport={{ once: true, amount: 0.5 }}
             >
+              <Flex flexDirection={"column"} color="white" alignItems="center" p="0 0.3rem">
               {selectedTab.content.map((item, index) => {
                 return (
                   <Box
                     position={"absolute"}
+                    w="100%"
                     as={AnimatePresence}
                     exitBeforeEnter
                     key={index}
@@ -158,12 +172,12 @@ export default function Panels() {
                     <Flex
                       as={motion.div}
                       custom={index}
-                      variants={childVariant}
+                      variants={width > 570?childVariant:''}
                       position={"relative"}
-                      w="400px"
+                      w={{base:"100%",sm:"400px"}}
                       mt="0.1rem"
                       textShadow={"1px 1px 1px black"}
-                      left={checkOddEven(index) ? "-30px" : "0"}
+                      left={checkOddEven(index) ? {base:0,sm:"-30px"} : "0"}
                       right={checkOddEven(index) ? "0" : "-30px"}
                       justifyContent={"center"}
                       bgGradient={
@@ -233,9 +247,12 @@ export default function Panels() {
                   </Box>
                 );
               })}
+                
+              </Flex>
+              
             </motion.div>
           </AnimatePresence>
-        </Flex>
+        </Box>
       </>
     );
   }

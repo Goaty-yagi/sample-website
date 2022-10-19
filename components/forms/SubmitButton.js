@@ -11,12 +11,19 @@ import {
   PopoverCloseButton,
   PopoverAnchor,
   useDisclosure,
-  useToast
+  useToast,
+  Flex
 } from "@chakra-ui/react";
-import { useRef, useState } from "react";
+import { forwardRef, useRef, useImperativeHandle } from "react"
 
-export default function SubmitButton({resetForm}) {
+const SubmitButton = forwardRef((props, ref) => {
   const { onOpen, onClose, isOpen } = useDisclosure();
+  console.log("PR",props, ref)
+  useImperativeHandle(ref, () => ({
+    onOpen
+  })
+  )
+// export default function SubmitButton({resetForm}) {
   
   function PopTrigger({ children }) {
     return (
@@ -33,7 +40,7 @@ export default function SubmitButton({resetForm}) {
       const toast = useToast();
       const toastFun = () => {
         onCancel();
-        resetForm()
+        props.resetForm()
         return toast({
           title: "Successfully sent.",
           description: "We've send your message.",
@@ -86,4 +93,6 @@ export default function SubmitButton({resetForm}) {
       </Flex>
     );
   
-}
+})
+
+export default SubmitButton

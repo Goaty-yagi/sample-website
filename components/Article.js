@@ -27,25 +27,29 @@ export default function article() {
       image: "/images/access.jpg",
     },
   ];
+  
   function Articles() {
     const headingStyles = {
       mb: "2rem",
-      fontSize: "2.5rem",
+      fontSize:{base:"1.2rem", lg:"1.5rem", xl:"2rem"},
     };
     return (
-      <Box w="1300px">
+      <Box maxW={{base:"auto", lg:"1300px"}} p="1rem">
         {articles.map((article, index) => {
           return (
             <Scroll key={index}>
-              <Flex mb="8rem" h="280px" justifyContent={"center"}>
-                {index % 2 !== 0 && (
+              <Flex
+               flexDirection={{base:"column", lg:index % 2 !==0? "row":"row-reverse" }} 
+               mb={{base:"1rem", lg:"8rem"}} 
+               h={{base:"600px",lg:"250px"}} 
+               justifyContent={"center"}>
                   <>
+                  {console.log(article)}
                     <Box
-                      flexBasis={"45%"}
+                      flexBasis={"50%"}
                       w="100%"
                       h={"100%"}
                       position="relative"
-                      overflow={"hidden"}
                     >
                       <Image
                         src={article.image}
@@ -54,34 +58,11 @@ export default function article() {
                         // objectPosition="50% 0"
                       />
                     </Box>
-                    <Box p="1rem" flexBasis={"45%"}>
+                    <Box p="1rem" flexBasis={"50%"}>
                       <Heading sx={headingStyles}>{article.title}</Heading>
-                      <Text bottom="0">{article.article}</Text>
+                      <Box h="100%" bottom="0">{article.article}</Box>
                     </Box>
                   </>
-                )}
-                {index % 2 === 0 && (
-                  <>
-                    <Box p="1rem" flexBasis={"45%"}>
-                      <Heading sx={headingStyles}>{article.title}</Heading>
-                      <Text bottom="0">{article.article}</Text>
-                    </Box>
-                    <Box
-                      flexBasis={"45%"}
-                      w="100%"
-                      h={"100%"}
-                      position="relative"
-                      overflow={"hidden"}
-                    >
-                      <Image
-                        src={article.image}
-                        layout="fill"
-                        objectFit="cover"
-                        // objectPosition="50% 0"
-                      />
-                    </Box>
-                  </>
-                )}
               </Flex>
             </Scroll>
           );
@@ -96,8 +77,10 @@ export default function article() {
       mt="3rem"
       flexDirection={"column"}
     >
+      <Box h="50px">
       <Toggle />
-      <Heading mb="3rem" size="lg">
+      </Box>
+      <Heading mb="3rem" fontSize={{base:"1.2rem", lg:"1.5rem", xl:"2rem"}}>
         {dateInfo}
       </Heading>
       <Articles />
