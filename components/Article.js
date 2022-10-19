@@ -31,7 +31,7 @@ export default function article() {
   function Articles() {
     const headingStyles = {
       mb: "2rem",
-      fontSize:{base:"1.2rem", lg:"1.5rem", xl:"2rem"},
+      fontSize:{base:"1.2rem",md:"2rem", lg:"1.5rem", xl:"2rem"},
     };
     return (
       <Box maxW={{base:"auto", lg:"1300px"}} p="1rem">
@@ -46,7 +46,7 @@ export default function article() {
                   <>
                   {console.log(article)}
                     <Box
-                      flexBasis={"50%"}
+                      flexBasis={{base:'',lg:"50%"}}
                       w="100%"
                       h={"100%"}
                       position="relative"
@@ -58,7 +58,7 @@ export default function article() {
                         // objectPosition="50% 0"
                       />
                     </Box>
-                    <Box p="1rem" flexBasis={"50%"}>
+                    <Box p="1rem" flexBasis={{base:'',lg:"50%"}}>
                       <Heading sx={headingStyles}>{article.title}</Heading>
                       <Box h="100%" bottom="0">{article.article}</Box>
                     </Box>

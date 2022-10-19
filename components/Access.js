@@ -13,7 +13,7 @@ export default function Access() {
         <Box
           w="100%"
           mt="1rem"
-          p="5rem"
+          p="1rem"
           position="relative"
           overflow={"hidden"}
         >
