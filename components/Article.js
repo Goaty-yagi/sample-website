@@ -41,14 +41,14 @@ export default function article() {
               <Flex
                flexDirection={{base:"column", lg:index % 2 !==0? "row":"row-reverse" }} 
                mb={{base:"1rem", lg:"8rem"}} 
-               h={{base:"600px",lg:"250px"}} 
+               h={{base:"auto",sm:"500px",md:"600px",lg:"250px"}} 
                justifyContent={"center"}>
                   <>
                   {console.log(article)}
                     <Box
                       flexBasis={{base:'',lg:"50%"}}
                       w="100%"
-                      h={"100%"}
+                      h={{base:'250px',sm:"100%"}}
                       position="relative"
                     >
                       <Image

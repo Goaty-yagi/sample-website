@@ -6,11 +6,10 @@ import { wrap } from "popmotion";
 export default function Slideshow({ images }) {
   const [check, setCheck] = useState(0)
   useEffect(() => {
-    const id = setInterval(() => {
+    setTimeout(() => {
       paginate(1)
       setCheck(check + 1)
   }, 5000);
-  return () => clearInterval(id);
   },[check])
   function Selector() {
     const selectorWidth = images.length * 32
@@ -138,8 +137,10 @@ export default function Slideshow({ images }) {
           />
         {Object.keys(images[imageIndex]).some((val) => val === "text") && (
             <Heading
-            top="calc(50% - 20px)"
-            left="50px"
+            top={{base:"50%", md:"calc(50% - 20px)"}}
+            left={{base:"50%", md:"50px"}}
+            transform={{base:"translate(-50%, -50%)", md:"none"}}
+            textAlign="center"
             color={"white"}
             border={"solid gray"}
             bg="rgba(255,255,255,0.2)"
