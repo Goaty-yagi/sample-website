@@ -18,7 +18,7 @@ export default function Access() {
           overflow={"hidden"}
         >
           <Image
-            src={"/images/access.jpg"}
+            src={"/images/map.jpg"}
             width="90%"
             height="60%"
             layout="responsive"

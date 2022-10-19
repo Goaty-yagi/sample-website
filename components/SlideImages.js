@@ -1,55 +1,62 @@
-import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useRef, useState, useLayoutEffect, useDebugValue } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useLayoutEffect,
+  useDebugValue,
+} from "react";
 
 // import path from "path";
 export default function SlideImages({ images }) {
-  const [oneSequence, setOneSequence] = useState(0)
-  const [fileArray, setFileArray] = useState(images)
-  const [baseImageNum, setBaseImageNum] = useState(150)
-  const containerRef = useRef('')
-
+  const [oneSequence, setOneSequence] = useState(0);
+  const [fileArray, setFileArray] = useState(images);
+  const [baseImageNum, setBaseImageNum] = useState(150);
+  const containerRef = useRef("");
+  const shadowColor = useColorModeValue("white", "rgb(26,32,44)")
   const imageDimension = (file) => {
     // receive image obj and return dimension of the image.
-    // ex, width and height are the same, return w:1 , h:1. 
-    const division = file.height / file.width
+    // ex, width and height are the same, return w:1 , h:1.
+    const division = file.height / file.width;
     let imageInfo = {
       w: 1,
-      h: 1
+      h: 1,
+    };
+    if (division === 1) {
+      return imageInfo;
     }
-    if(division === 1) {
-      return imageInfo
-    }
-    imageInfo.w = division < 1 ? file.width / file.height  : 1,
-    imageInfo.h = division > 1 ? file.height / file.width : 1 
-    return imageInfo
-  }
+    (imageInfo.w = division < 1 ? file.width / file.height : 1),
+      (imageInfo.h = division > 1 ? file.height / file.width : 1);
+    return imageInfo;
+  };
   useEffect(() => {
-    if(typeof window !== "undefined") {
-      setBaseImageNum(window.innerWidth > 600 ? 150 : 120)
+    if (typeof window !== "undefined") {
+      setBaseImageNum(window.innerWidth > 600 ? 150 : 120);
       // window.addEventListener('resize',(e) => {
       //   if(window.innerWidth > 600) {
       //     setBaseImageNum(100)
       //   }
       // })
-      let sumWidth = 0
-      const fileMarginBothside = 16 * 2 //1rem margin on both sides
+      let sumWidth = 0;
+      const fileMarginBothside = 16 * 2; //1rem margin on both sides
       images.forEach((each) => {
-        sumWidth += imageDimension(each).w * baseImageNum + fileMarginBothside
-      })
-      let actualSequence = sumWidth
+        sumWidth += imageDimension(each).w * baseImageNum + fileMarginBothside;
+      });
+      let actualSequence = sumWidth;
       let divisionNum = containerRef.current.offsetWidth / actualSequence;
-      let tempFileArray = images
-      while(containerRef.current.offsetWidth > actualSequence - sumWidth) {
-        actualSequence += sumWidth
+      let tempFileArray = images;
+      console.log(divisionNum, tempFileArray);
+      while (containerRef.current.offsetWidth > actualSequence - sumWidth) {
+        actualSequence += sumWidth;
         divisionNum = containerRef.current.offsetWidth / actualSequence;
-        tempFileArray = tempFileArray.concat(images)
+        tempFileArray = tempFileArray.concat(images);
       }
-      setOneSequence(sumWidth)
-      setFileArray(tempFileArray)
+      setOneSequence(sumWidth);
+      setFileArray(tempFileArray);
     }
-  },[])
+  }, []);
   function SlideItems() {
     return (
       <Flex>
@@ -64,7 +71,8 @@ export default function SlideImages({ images }) {
                 h={`${imageDimension(file).h * baseImageNum}px`}
                 position="relative"
               >
-                <Image
+                <Box
+                  as={Image}
                   layout="fill"
                   objectFit="cover"
                   objectPosition="50% 50%"
@@ -74,7 +82,7 @@ export default function SlideImages({ images }) {
             );
           })}
       </Flex>
-    )
+    );
   }
   function Slide() {
     return (
@@ -83,13 +91,21 @@ export default function SlideImages({ images }) {
         animate={{ x: -oneSequence }}
         transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
       >
-        <SlideItems/>
+        <SlideItems />
       </motion.div>
-      
     );
   }
   return (
-    <Box w="80vw"  overflow={"hidden"}>
+    <Box
+      w="80vw"
+      position={"relative"}
+      // bg={"linear-gradient(to right,rgba(255,255,255,1)20%, rgba(0,0,0,0)80%"}
+      overflow={"hidden"}
+    >
+      <Flex zIndex="2" h="100%" w="100%" position={"absolute"} justifyContent="space-between">
+        <Box w="150px" h="100%" bg={`linear-gradient(to right, ${shadowColor} 20%, rgba(0,0,0,0)80%)`}/>
+        <Box w="150px" h="100%" bg={`linear-gradient(to left, ${shadowColor} 20%, rgba(0,0,0,0)80%)`}/>
+      </Flex>
       <Slide />
     </Box>
   );

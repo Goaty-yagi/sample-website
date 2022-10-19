@@ -44,7 +44,6 @@ export default function article() {
                h={{base:"auto",sm:"500px",md:"600px",lg:"250px"}} 
                justifyContent={"center"}>
                   <>
-                  {console.log(article)}
                     <Box
                       flexBasis={{base:'',lg:"50%"}}
                       w="100%"

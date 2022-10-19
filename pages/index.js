@@ -10,14 +10,14 @@ import Schedule from '../components/Schedule'
 import styles from '../styles/Home.module.css'
 import fs from "fs";
 import path from "path";
-
+import ScrollTop from '../components/ScrollTop'
 
 export default function Home({images}) {
-  console.log(images)
   return (
     <>
     
     <Main/>
+    <ScrollTop/>
     <Article/>
     <Access/>
     <Schedule/>
