@@ -7,6 +7,7 @@ import { useEffect, useRef, useState, useLayoutEffect, useDebugValue } from "rea
 export default function SlideImages({ images }) {
   const [oneSequence, setOneSequence] = useState(0)
   const [fileArray, setFileArray] = useState(images)
+  const [baseImageNum, setBaseImageNum] = useState(150)
   const containerRef = useRef('')
 
   const imageDimension = (file) => {
@@ -25,13 +26,18 @@ export default function SlideImages({ images }) {
     return imageInfo
   }
   useEffect(() => {
-    if(typeof window !== "undifined") {
+    if(typeof window !== "undefined") {
+      setBaseImageNum(window.innerWidth > 600 ? 150 : 120)
+      // window.addEventListener('resize',(e) => {
+      //   if(window.innerWidth > 600) {
+      //     setBaseImageNum(100)
+      //   }
+      // })
       let sumWidth = 0
       const fileMarginBothside = 16 * 2 //1rem margin on both sides
       images.forEach((each) => {
-        sumWidth += imageDimension(each).w * 150 + fileMarginBothside
+        sumWidth += imageDimension(each).w * baseImageNum + fileMarginBothside
       })
-      console.log(images)
       let actualSequence = sumWidth
       let divisionNum = containerRef.current.offsetWidth / actualSequence;
       let tempFileArray = images
@@ -54,8 +60,8 @@ export default function SlideImages({ images }) {
                 key={index}
                 m="1rem"
                 flexShrink={"0"}
-                w={`${imageDimension(file).w * 150}px`}
-                h={`${imageDimension(file).h * 150}px`}
+                w={`${imageDimension(file).w * baseImageNum}px`}
+                h={`${imageDimension(file).h * baseImageNum}px`}
                 position="relative"
               >
                 <Image
