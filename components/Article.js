@@ -75,12 +75,14 @@ export default function article() {
       position="relative"
       alignItems={"center"}
       mt="3rem"
+      ml="0.3rem"
+      mr="0.3rem"
       flexDirection={"column"}
     >
-      <Box h="50px">
+      <Flex  position={"rlative"} justifyContent="flex-end" w="100%" mr={{base:"1rem", lg:"3rem"}} h="50px">
       <Toggle />
-      </Box>
-      <Heading mb="3rem" fontSize={{base:"1.2rem", lg:"1.5rem", xl:"2rem"}}>
+      </Flex>
+      <Heading mb="3rem" fontSize={{base:"0.9rem", sm:"1.1rem", lg:"1.5rem", xl:"2rem"}}>
         {dateInfo}
       </Heading>
       <Articles />

@@ -10,9 +10,6 @@ export default function Toggle() {
 
   return (
     <Box
-      position="absolute"
-      right="45px"
-      top="0"
       onClick={(e) => {
         e.preventDefault();
         toggleColorMode();
