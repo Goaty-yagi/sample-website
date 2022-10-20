@@ -70,6 +70,7 @@ export default function SlideImages({ images }) {
                   objectFit="cover"
                   objectPosition="50% 50%"
                   src={`/partners/${file.file}`}
+                  alt="image"
                 />
               </Box>
             );

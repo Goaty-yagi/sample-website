@@ -131,6 +131,7 @@ export default function Slideshow({ images }) {
           <Image
             as={motion.img}
             src={images[imageIndex].url}
+            alt={"image"}
             h={"100%"}
             w="100%"
             layout="fill"
