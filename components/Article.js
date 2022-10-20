@@ -5,20 +5,18 @@ import Scroll from "./animations/Scroll";
 import Toggle from "./Toggle";
 
 export default function article() {
-  const dateInfo = "THURSDAY 22 SEPTEMBER - SUNDAY 2 OCTOBER 2022";
+  const dateInfo = "FRYDAY 20 OCTOBER - SUNDAY 22 OCTOBER 2023";
   const articles = [
     {
       title: "We are back in 2023",
-      article: `Sample Festival is set to welcome back the big crowds and summer celebrations in a return to its traditional format on the new dates of Saturday 18 & Sunday 19 February in 2023.
-      The 42nd edition of the iconic Festival will take place as a two-day program showcasing more than 50 incredible artists across a packed weekend of music, family activities and fun.
-      Save the date and see you in St Kilda in 2023!`,
+      article: `Sample Festival is set to welcome back the big crowds and summer celebrations in a return to its traditional format on the new dates of Fryday 20 & Sunday 22 October in 2023.
+      The 12nd edition of the sample Festival will take place as a three-day program showcasing more than 10 incredible artists across a packed weekend of music, family activities and fun.
+      Save the date and see you in Melbourne CBD in 2023!`,
       image: "/images/main.jpg",
     },
     {
       title: "20000 fire works",
-      article: `Sample Festival is set to welcome back the big crowds and summer celebrations in a return to its traditional format on the new dates of Saturday 18 & Sunday 19 February in 2023.
-      The 42nd edition of the iconic Festival will take place as a two-day program showcasing more than 50 incredible artists across a packed weekend of music, family activities and fun.
-      Save the date and see you in St Kilda in 2023!`,
+      article: `Sample festival will kick off with a vibrant fireworks display at Sample Stadium. This free event will be a fun evening out for the whole family and will include live entertainment from the a cappella vocal ensemble Melbourne Octet and Japanese drummers Wadaiko Kindo, various food vans will also be onsite, selling tasty treats on the night.`,
       image: "/images/fireworks.jpg",
     },
     {
@@ -27,41 +25,55 @@ export default function article() {
       image: "/images/access.jpg",
     },
   ];
-  
+
   function Articles() {
     const headingStyles = {
       mb: "2rem",
-      fontSize:{base:"1.2rem",md:"2rem", lg:"1.5rem", xl:"2rem"},
+      fontSize: { base: "1.2rem", md: "2rem", lg: "1.5rem", xl: "2rem" },
     };
     return (
-      <Box maxW={{base:"auto", lg:"1300px"}} p="1rem">
+      <Box maxW={{ base: "auto", lg: "1300px" }} p="1rem">
         {articles.map((article, index) => {
           return (
             <Scroll key={index}>
               <Flex
-               flexDirection={{base:"column", lg:index % 2 !==0? "row":"row-reverse" }} 
-               mb={{base:"1rem", lg:"8rem"}} 
-               h={{base:"auto",sm:"500px",md:"600px",lg:"250px"}} 
-               justifyContent={"center"}>
-                  <>
-                    <Box
-                      flexBasis={{base:'',lg:"50%"}}
-                      w="100%"
-                      h={{base:'250px',sm:"100%"}}
-                      position="relative"
-                    >
-                      <Image
-                        src={article.image}
-                        layout="fill"
-                        objectFit="cover"
-                        // objectPosition="50% 0"
-                      />
+                flexDirection={{
+                  base: "column",
+                  lg: index % 2 !== 0 ? "row" : "row-reverse",
+                }}
+                mb={{ base: "1rem", lg: "8rem" }}
+                h={{
+                  base: "auto",
+                  sm: "500px",
+                  md: "600px",
+                  lg: "250px",
+                  xl: "350px",
+                }}
+                justifyContent={"center"}
+              >
+                <>
+                  <Box
+                    flexBasis={{ base: "", lg: "50%" }}
+                    w="100%"
+                    h={{ base: "250px", sm: "100%" }}
+                    position="relative"
+                  >
+                    <Image
+                      src={article.image}
+                      layout="fill"
+                      objectFit="cover"
+                      // objectPosition="50% 0"
+                    />
+                  </Box>
+                  <Box p="1rem" flexBasis={{ base: "", lg: "50%" }}>
+                    <Heading fontFamily={"georgia"} sx={headingStyles}>
+                      {article.title}
+                    </Heading>
+                    <Box fontFamily={"trebuchet"} h="100%" bottom="0">
+                      {article.article}
                     </Box>
-                    <Box p="1rem" flexBasis={{base:'',lg:"50%"}}>
-                      <Heading sx={headingStyles}>{article.title}</Heading>
-                      <Box h="100%" bottom="0">{article.article}</Box>
-                    </Box>
-                  </>
+                  </Box>
+                </>
               </Flex>
             </Scroll>
           );
@@ -78,10 +90,20 @@ export default function article() {
       mr="0.3rem"
       flexDirection={"column"}
     >
-      <Flex  position={"rlative"} justifyContent="flex-end" w="100%" mr={{base:"1rem", lg:"3rem"}} h="50px">
-      <Toggle />
+      <Flex
+        position={"rlative"}
+        justifyContent="flex-end"
+        w="100%"
+        mr={{ base: "1rem", lg: "3rem" }}
+        h="50px"
+      >
+        <Toggle />
       </Flex>
-      <Heading mb="3rem" fontSize={{base:"0.9rem", sm:"1.1rem", lg:"1.5rem", xl:"2rem"}}>
+      <Heading
+        mb="3rem"
+        fontFamily={"times"}
+        fontSize={{ base: "0.9rem", sm: "1.1rem", lg: "1.5rem", xl: "2rem" }}
+      >
         {dateInfo}
       </Heading>
       <Articles />

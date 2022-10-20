@@ -5,8 +5,6 @@ import {
   useEffect,
   useRef,
   useState,
-  useLayoutEffect,
-  useDebugValue,
 } from "react";
 
 // import path from "path";
@@ -33,12 +31,7 @@ export default function SlideImages({ images }) {
   };
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setBaseImageNum(window.innerWidth > 600 ? 150 : 120);
-      // window.addEventListener('resize',(e) => {
-      //   if(window.innerWidth > 600) {
-      //     setBaseImageNum(100)
-      //   }
-      // })
+      setBaseImageNum(window.innerWidth > 600 ? 150 : 90);
       let sumWidth = 0;
       const fileMarginBothside = 16 * 2; //1rem margin on both sides
       images.forEach((each) => {
@@ -97,12 +90,12 @@ export default function SlideImages({ images }) {
   }
   return (
     <Box
-      w="80vw"
+      w={{base:"100vw", lg:"80vw"}}
       position={"relative"}
-      // bg={"linear-gradient(to right,rgba(255,255,255,1)20%, rgba(0,0,0,0)80%"}
       overflow={"hidden"}
+      borderRadius="50vh"
     >
-      <Flex zIndex="2" h="100%" w="100%" position={"absolute"} justifyContent="space-between">
+      <Flex overflow={"hidden"} zIndex="2" h="100%" w="100%" position={"absolute"} justifyContent="space-between">
         <Box w="150px" h="100%" bg={`linear-gradient(to right, ${shadowColor} 20%, rgba(0,0,0,0)80%)`}/>
         <Box w="150px" h="100%" bg={`linear-gradient(to left, ${shadowColor} 20%, rgba(0,0,0,0)80%)`}/>
       </Flex>

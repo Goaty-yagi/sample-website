@@ -2,7 +2,7 @@ import { Box, Text, Flex, Heading } from "@chakra-ui/react";
 import Image from "next/image";
 
 export default function Footer() {
-  const copyLight = "Copyright ©  2010-2022 Sample Company All rights reserved."
+  const copyLight = "Copyright ©  2011-2023 Sample Company All rights reserved."
   return (
     <Flex position="relative" bottom={"0"} flexDirection={"column"} mt="3rem" justifyContent={"flex-end"} alignItems="center" h="200px" bg="black">
       <Box position={"absolute"} top="0" w="80px" h="80px" zIndex={"10"}>

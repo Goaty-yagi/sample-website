@@ -24,20 +24,16 @@ export default function Main() {
   // ];
   const images = [
     {
-      url: "/images/main.jpg",
-      text: "It is Main",
+      url: "/mainVisual/fireworks-city.jpg",
+      text: "Over 20000 fireworks will shoot up in the beautiful sky at the night!",
     },
     {
-      url: "/images/access.jpg",
-      text: "This is Access",
+      url: "/mainVisual/female-customer-food-stand.jpg",
+      text: "Try and taste 20 kinds of cuisines over the world!",
     },
     {
-      url: "/images/fireworks.jpg",
-      text: "This is Fireworks",
-    },
-    {
-      url: "https://d33wubrfki0l68.cloudfront.net/dd23708ebc4053551bb33e18b7174e73b6e1710b/dea24/static/images/wallpapers/shared-colors@2x.png",
-      text: "This is comes from somewhere",
+      url: "/mainVisual/people-festival.jpg",
+      text: "Famous artists will make you excited at the night!",
     },
   ];
   return (
