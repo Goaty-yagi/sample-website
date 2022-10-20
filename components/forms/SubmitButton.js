@@ -94,5 +94,5 @@ const SubmitButton = forwardRef((props, ref) => {
     );
   
 })
-
+SubmitButton.displayName = 'SubmitButton';
 export default SubmitButton

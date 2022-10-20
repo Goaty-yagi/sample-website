@@ -72,6 +72,7 @@ export default function Main() {
       <Box position={"absolute"} top="0" w="80px" h="80px" zIndex={"10"}>
         <Image
           src={"/images/logo.png"}
+          alt="image"
           layout="fill"
           objectFit="content"
           objectPosition="50% 50%"

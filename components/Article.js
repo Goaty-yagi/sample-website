@@ -60,6 +60,7 @@ export default function article() {
                   >
                     <Image
                       src={article.image}
+                      alt="image"
                       layout="fill"
                       objectFit="cover"
                       // objectPosition="50% 0"
