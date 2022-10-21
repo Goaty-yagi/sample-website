@@ -1,5 +1,5 @@
 import { Box, Image, Text, Flex } from "@chakra-ui/react";
-import Slideshow from "./images/SlideShow";
+import Slideshow from "./images/Slideshow";
 
 export default function Main() {
   const mainText = `Unforgettable\nExperience`;
