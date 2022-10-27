@@ -1,4 +1,4 @@
-import { Box, Text, Flex, Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading } from "@chakra-ui/react";
 import Image from "next/image";
 
 export default function Footer() {

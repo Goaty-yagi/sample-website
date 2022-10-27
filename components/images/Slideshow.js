@@ -1,10 +1,21 @@
-import { Box, Flex, Image, Text, Heading, Center } from "@chakra-ui/react";
+import { Box, Flex, Image, Heading, Center } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { wrap } from "popmotion";
+import CustomImage from "./CustomImage";
 
 export default function Slideshow({ images }) {
+  const imageProps = (index) => {
+    return {
+      src: images[index].url,
+      alt: "image",
+      layout: "fill",
+      objectFit: "cover",
+      objectPosition:"50% 0"
+    };
+  };
   const [check, setCheck] = useState(0);
+  const [refIsLoaded, setValue] = useState()
   let timeoutID;
 
   useEffect(() => {
@@ -92,10 +103,6 @@ export default function Slideshow({ images }) {
 
   const [[page, direction], setPage] = useState([0, 0]);
 
-  // We only have 3 images, but we paginate them absolutely (ie 1, 2, 3, 4, 5...) and
-  // then wrap that within 0-2 to find our image ID in the array below. By passing an
-  // absolute page index as the `motion` component's `key` prop, `AnimatePresence` will
-  // detect it as an entirely new image. So you can infinitely paginate as few as 1 images.
   const imageIndex = wrap(0, images.length, page);
   const paginate = (newDirection) => {
     slideControler();
@@ -128,15 +135,12 @@ export default function Slideshow({ images }) {
             opacity: { duration: 0.2 },
           }}
         >
-          <Image
+          <CustomImage
             as={motion.img}
-            src={images[imageIndex].url}
-            alt={"image"}
+            setMethod={setValue}
+            props={imageProps(imageIndex)}
             h={"100%"}
             w="100%"
-            layout="fill"
-            objectFit="cover"
-            objectPosition="50% 0"
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={1}
@@ -150,7 +154,7 @@ export default function Slideshow({ images }) {
               }
             }}
           />
-          {Object.keys(images[imageIndex]).some((val) => val === "text") && (
+          {Object.keys(images[imageIndex]).some((val) => val === "text")&&refIsLoaded && (
             <Heading
               w={{ base: "80%", md: "50%" }}
               fontSize={{ base: "1.4rem", md: "2rem" }}

@@ -1,7 +1,6 @@
-import { Box, Text, Flex, Heading } from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import Image from "next/image";
+import { Box, Flex, Heading } from "@chakra-ui/react";
 import Scroll from "./animations/Scroll";
+import CustomImage from "./images/CustomImage";
 import Toggle from "./Toggle";
 
 export default function article() {
@@ -31,6 +30,14 @@ export default function article() {
       mb: "2rem",
       fontSize: { base: "1.2rem", md: "2rem", lg: "1.5rem", xl: "2rem" },
     };
+    const imageProps = (obj) => {
+      return {
+        src: obj.image,
+        alt: "image",
+        layout: "fill",
+        objectFit: "cover",
+      };
+    };
     return (
       <Box maxW={{ base: "auto", lg: "1300px" }} p="1rem">
         {articles.map((article, index) => {
@@ -58,13 +65,7 @@ export default function article() {
                     h={{ base: "250px", sm: "100%" }}
                     position="relative"
                   >
-                    <Image
-                      src={article.image}
-                      alt="image"
-                      layout="fill"
-                      objectFit="cover"
-                      // objectPosition="50% 0"
-                    />
+                    <CustomImage props={imageProps(article)} />
                   </Box>
                   <Box p="1rem" flexBasis={{ base: "", lg: "50%" }}>
                     <Heading fontFamily={"georgia"} sx={headingStyles}>

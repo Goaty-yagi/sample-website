@@ -1,15 +1,10 @@
 import {
   Tabs,
-  TabList,
-  TabPanels,
   Tab,
-  TabPanel,
   Box,
   Flex,
   Text,
-  Heading,
-  Center,
-  transition,
+  Heading
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { IoMdTimer } from "react-icons/io";
@@ -195,7 +190,6 @@ export default function Panels() {
   const childVariant = {
     hidden: (index) => ({
       opacity:0,
-      // position:"absolute",
       x: index % 2 === 0 ? "-100px" : "100px",
     }),
     show: {
@@ -213,7 +207,6 @@ export default function Panels() {
   };
   function Contents() {
     const checkOddEven = (num) => {
-      //return true if even
       return num % 2 === 0;
     };
     return (
@@ -274,7 +267,6 @@ export default function Panels() {
                           checkOddEven(index) ? "solid darkblue" : ""
                         }
                         borderLeft={checkOddEven(index) ? "" : "solid darkblue"}
-                        // bgGradient={`linear(to-r, darkgray,#${randonNum(0)})`}
                       />
                       <Flex
                         flexBasis={"20%"}

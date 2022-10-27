@@ -9,7 +9,7 @@ export default function Scroll({ children }) {
         duration: 0.5,
         delay: 0.5,
       }}
-      viewport={{ once: true, amount:0.4 }}
+      viewport={{ once: true, amount:0.2 }}
     >
       {children}
     </motion.div>

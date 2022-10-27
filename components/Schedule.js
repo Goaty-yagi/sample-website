@@ -1,6 +1,4 @@
-import { Box, Text, Flex, Heading, Center } from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import Image from "next/image";
+import { Flex, Heading, Center } from "@chakra-ui/react";
 import Panels from "./Panels";
 
 export default function Schedule() {

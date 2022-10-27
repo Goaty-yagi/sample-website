@@ -1,6 +1,5 @@
-import { Box, Text, Flex, Heading, Center } from "@chakra-ui/react";
+import { Flex, Heading, Center } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import SlideImages from "./SlideImages";
 
 export default function Partners({ images }) {
