@@ -10,41 +10,49 @@ import { MdOutlineContentCopy } from "react-icons/md";
 import { useEffect, useState } from "react";
 
 export default function Social() {
+  const [url, setUrl] = useState("");
+  
   const socials = [
     {
       icon: TiSocialTwitter,
       color: "#00acee",
       label: "Twitter",
+      url:"http://twitter.com/share"
     },
-    {
-      icon: TiSocialInstagram,
-      color: "#8a3ab9",
-      label: "Instagram",
-    },
+    // {
+    //   icon: TiSocialInstagram,
+    //   color: "#8a3ab9",
+    //   label: "Instagram",
+    //   url:""
+    // },
     {
       icon: TiSocialFacebook,
       color: "#3b5998",
       label: "Facebook",
+      url:"http://www.facebook.com/share"
     },
     {
       icon: TiSocialLinkedin,
       color: "#0e76a8",
       label: "Linkedin",
+      url:"https://www.linkedin.com/sharing/"
     },
     {
       icon: SiLine,
       color: "#00b900",
       label: "Line",
+      url:"https://social-plugins.line.me/lineit/share"
     },
-    {
-      icon: SiWechat,
-      color: "#09B83E",
-      label: "Wechat",
-    },
+    // {
+    //   icon: SiWechat,
+    //   color: "#09B83E",
+    //   label: "Wechat",
+    // },
     {
       icon: SiWhatsapp,
       color: "#075e54	",
       label: "Whatsapp",
+      url:`https://api.whatsapp.com/send?&text=${url}`
     },
     {
       icon: MdOutlineContentCopy,
@@ -52,9 +60,11 @@ export default function Social() {
       label: "URL-Copy",
     },
   ];
-  const [url, setUrl] = useState("");
+  
   const toast = useToast();
-
+  function openSnsUrl(url) {
+    window.open(url)
+  }
   function copyTextToClipboard(text) {
     navigator.clipboard.writeText(text).then(
       function () {
@@ -96,10 +106,11 @@ export default function Social() {
               <Box
                 as={social.icon}
                 transition=".3s"
+                color="white"
                 _hover={{ color: social.color }}
                 onClick={social.label==="URL-Copy"?() => {
                   copyTextToClipboard(url);
-                }:() => {}}
+                }:() => openSnsUrl(social.url)}
               />
             </span>
           </Tooltip>

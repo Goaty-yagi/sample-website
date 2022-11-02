@@ -11,20 +11,13 @@ import styles from "../styles/Home.module.css";
 import fs from "fs";
 import path from "path";
 import ScrollTop from "../components/ScrollTop";
-import { useRouter } from 'next/router'
-import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function Home({ images }) {
   
   return (
     <>
-      <Head>
-        <title>Sample-Site</title>
-        <meta property="og:site_name" content="Sample-Site" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={"something"} />
-        <meta property="og:image" content="/map.jpg" />
-      </Head>
       <Main />
       <ScrollTop />
       <Article />
